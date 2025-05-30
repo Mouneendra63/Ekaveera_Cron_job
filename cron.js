@@ -1,6 +1,7 @@
-const cron = require('node-cron');
+// fetchAppointments.js
 const axios = require('axios');
 const dotenv = require('dotenv');
+
 dotenv.config();
 
 const fetchAppointments = async () => {
@@ -22,11 +23,8 @@ const fetchAppointments = async () => {
     console.table(extracted);
   } catch (error) {
     console.error(`[${new Date().toISOString()}] Failed to fetch appointments:`, error.message);
+    process.exit(1); 
   }
 };
-
-cron.schedule('0 0 * * *', fetchAppointments, {
-  timezone: 'Asia/Kolkata',
-});
 
 fetchAppointments();
